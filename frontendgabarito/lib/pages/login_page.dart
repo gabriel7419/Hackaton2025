@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
             Icon(Icons.cast_for_education, size: 80, color: theme.primaryColor),
             const SizedBox(height: 20),
             Text(
-              'Bem-vindo de volta!',
+              'Seja bem vindo!',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                   Icons.person_outline_rounded,
                   color: theme.primaryColor,
                 ),
-                hintText: 'Digite seu usuário',
+                hintText: 'Insira seu login',
               ),
             ),
             const SizedBox(height: 20),
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                     });
                   },
                 ),
-                hintText: 'Digite sua senha',
+                hintText: 'Insira sua senha',
               ),
             ),
             const SizedBox(height: 30),
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                 Image.asset('assets/logo.png', height: 60),
                 const SizedBox(height: 10),
                 Text(
-                  'Faculdade Alfa',
+                  'Faculdade Alfa ',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
