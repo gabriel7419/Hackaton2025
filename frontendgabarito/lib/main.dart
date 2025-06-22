@@ -14,11 +14,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Corretor de Gabaritos',
       theme: ThemeData(
-        primaryColor: const Color(0xFF0055A5),
-        scaffoldBackgroundColor: const Color(0xFFF8F9FA),
+        primaryColor: const Color(0xFF0055A5), // Azul original
+        scaffoldBackgroundColor: const Color(0xFFF3E5F5), // Roxo claro de fundo
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color(0xFF0055A5),
-          secondary: const Color(0xFF6C757D),
+          primary: const Color(0xFF0055A5), // Azul original
+          secondary: const Color(0xFF6C757D), // Cinza original
+          surface: Colors.white, // Superfície de cards/inputs
         ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF0055A5),
+            backgroundColor: const Color(0xFF0055A5), // Azul original
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
@@ -46,7 +47,18 @@ class MyApp extends StatelessWidget {
           ),
         ),
         textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Color(0xFF6C757D)),
+          bodyMedium: TextStyle(color: Color(0xFF6C757D)), // Cinza original
+          titleLarge: TextStyle(
+            color: Color(0xFF0055A5), // Azul para títulos
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        cardTheme: CardTheme(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          color: Colors.white, // Fundo branco para cards
         ),
       ),
       home: const LoginPage(),
