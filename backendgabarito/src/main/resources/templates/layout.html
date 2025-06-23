@@ -59,6 +59,12 @@
             </a>
           </li>
 
+          <li class="nav-item" sec:authorize="hasRole('PROFESSOR')">
+            <a class="nav-link" href="/professor/resultados">
+              <i class="fas fa-file-alt"></i> Resultados
+            </a>
+          </li>
+
           <li class="nav-item" sec:authorize="hasRole('ALUNO')">
             <a class="nav-link" href="/aluno/dashboard">
               <i class="fas fa-tachometer-alt"></i> Dashboard
