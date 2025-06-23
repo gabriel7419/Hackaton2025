@@ -80,7 +80,7 @@ mvn spring-boot:run
 ```
 
 O backend estará rodando em:  
-👉 `http://localhost:8080`
+👉 `http://localhost:8081`
 
 ---
 
