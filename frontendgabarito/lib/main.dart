@@ -1,67 +1,85 @@
 import 'package:flutter/material.dart';
-import 'pages/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'screens/login_screen.dart';
+import 'screens/home_screen.dart';
+import 'services/auth_service.dart';
+import 'theme/app_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'UniALFA - Gabarito',
+      theme: AppTheme.lightTheme,
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
-      title: 'Corretor de Gabaritos',
-      theme: ThemeData(
-        primaryColor: const Color(0xFF0055A5), // Azul original
-        scaffoldBackgroundColor: const Color(0xFFF3E5F5), // Roxo claro de fundo
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color(0xFF0055A5), // Azul original
-          secondary: const Color(0xFF6C757D), // Cinza original
-          surface: Colors.white, // Superfície de cards/inputs
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Color(0xFF0055A5)),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Color(0xFF0055A5), width: 2),
-          ),
-          hintStyle: const TextStyle(color: Color(0xFF6C757D)),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF0055A5), // Azul original
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  _checkLoginStatus() async {
+    await Future.delayed(Duration(seconds: 2));
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userEmail = prefs.getString('user_email');
+
+    if (userEmail != null) {
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+    } else {
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppTheme.primaryColor,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.school, size: 100, color: Colors.white),
+            SizedBox(height: 20),
+            Text(
+              'UniALFA',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-            textStyle: const TextStyle(fontSize: 16),
-            elevation: 4,
-            padding: const EdgeInsets.symmetric(vertical: 14),
-          ),
-        ),
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: Color(0xFF6C757D)), // Cinza original
-          titleLarge: TextStyle(
-            color: Color(0xFF0055A5), // Azul para títulos
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        cardTheme: CardTheme(
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          color: Colors.white, // Fundo branco para cards
+            SizedBox(height: 10),
+            Text(
+              'Sistema de Gabarito',
+              style: TextStyle(fontSize: 18, color: Colors.white70),
+            ),
+            SizedBox(height: 40),
+            CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          ],
         ),
       ),
-      home: const LoginPage(),
     );
   }
 }
