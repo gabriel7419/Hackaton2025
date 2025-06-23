@@ -56,11 +56,9 @@ Este projeto foi desenvolvido para automatizar o processo de correção de prova
 ### 🛠️ Configuração do Banco de Dados
 
 1. Inicie o MySQL no XAMPP  
-2. Crie o banco de dados executando o script SQL fornecido:
+2. Crie o banco de dados executando o script SQL chamado gabarito_app no phpMyADmin (ou outro painel do MySQL de sua preferência)
 
-```sql
--- Execute o script SQL completo fornecido no arquivo `database_script.sql`
-```
+
 
 ---
 
