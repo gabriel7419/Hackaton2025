@@ -4,15 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb2ce3e0-a123-493d-b9da-d683cbe9c8a9" name="Changes" comment="" />
+    <list default="true" id="eb2ce3e0-a123-493d-b9da-d683cbe9c8a9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/unialfa/gabarito/GabaritoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/unialfa/gabarito/GabaritoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/unialfa/gabarito/config/GlobalControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/unialfa/gabarito/config/GlobalControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/unialfa/gabarito/GabaritoApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/unialfa/gabarito/GabaritoApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/unialfa/gabarito/config/GlobalControllerAdvice.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/unialfa/gabarito/config/GlobalControllerAdvice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/lib/theme/app_theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/lib/theme/app_theme.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendgabarito/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendgabarito/windows/flutter/generated_plugins.cmake" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2ytKhnmodn2fthVjDwSLnRNWldc" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -20,8 +38,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.GabaritoApplication.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/home/gabriel7419/Documentos/Hackaton2025/Hackaton2025/backendgabarito",
     "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
   }

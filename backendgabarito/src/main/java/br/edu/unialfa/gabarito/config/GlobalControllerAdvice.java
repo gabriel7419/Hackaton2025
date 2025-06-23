@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
-    @ModelAttribute("httpServletRequest")
-    public HttpServletRequest httpServletRequest(HttpServletRequest request) {
-        return request;
+    @ModelAttribute("isLoginPage")
+    public boolean isLoginPage(HttpServletRequest request) {
+        return request.getRequestURI().contains("/login");
     }
 }
