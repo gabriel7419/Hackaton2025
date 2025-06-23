@@ -1,193 +1,240 @@
-Sistema de Correção de Gabarito - UniALFA
+# 📝 Sistema de Correção de Gabarito - UniALFA
+
 Sistema completo para correção automática de gabaritos desenvolvido para o hackathon da Faculdade ALFA Umuarama.
-📋 Sobre o Projeto
+
+---
+
+## 📋 Sobre o Projeto
+
 Este projeto foi desenvolvido para automatizar o processo de correção de provas objetivas, oferecendo uma solução completa que inclui:
 
-Backend: API REST em Spring Boot com autenticação e autorização
-Frontend Web: Interface administrativa em Thymeleaf + Bootstrap
-Mobile: Aplicativo Flutter para envio de respostas
-Banco de Dados: MySQL com estrutura completa
+- 🔧 **Backend**: API REST em Spring Boot com autenticação e autorização  
+- 🌐 **Frontend Web**: Interface administrativa em Thymeleaf + Bootstrap  
+- 📱 **Mobile**: Aplicativo Flutter para envio de respostas  
+- 🗄️ **Banco de Dados**: MySQL com estrutura completa  
 
-🚀 Tecnologias Utilizadas
-Backend (Spring Boot)
+---
 
-Java 21
-Spring Boot 3.2.0
-Spring Web
-Spring Data JPA
-Spring Security
-MySQL Connector
-Thymeleaf
-Bootstrap 5
+## 🚀 Tecnologias Utilizadas
 
-Mobile (Flutter)
+### Backend (Spring Boot)
 
-Flutter 3.0+
-Dart
-HTTP (para consumo da API)
-Shared Preferences (armazenamento local)
-Camera (para futuras implementações de OCR)
+- Java 21  
+- Spring Boot 3.2.0  
+- Spring Web  
+- Spring Data JPA  
+- Spring Security  
+- MySQL Connector  
+- Thymeleaf  
+- Bootstrap 5  
 
-Banco de Dados
+### Mobile (Flutter)
 
-MySQL 8.0+
+- Flutter 3.0+  
+- Dart  
+- `http` (para consumo da API)  
+- `shared_preferences` (armazenamento local)  
+- `camera` (para futuras implementações de OCR)  
 
-📦 Instalação e Configuração
-Pré-requisitos
+### Banco de Dados
 
-Java 21 ou superior
-MySQL 8.0 ou superior
-Flutter 3.0 ou superior
-XAMPP (ou outro servidor MySQL)
+- MySQL 8.0+
 
-1. Configuração do Banco de Dados
+---
 
-Inicie o MySQL no XAMPP
-Crie o banco de dados executando o script SQL fornecido:
+## 📦 Instalação e Configuração
 
-sql-- Execute o script SQL completo fornecido no arquivo database_script.sql
-2. Configuração do Backend
+### ✅ Pré-requisitos
 
-Clone/baixe o projeto Spring Boot
-Configure o application.properties:
+- Java 21 ou superior  
+- MySQL 8.0 ou superior  
+- Flutter 3.0 ou superior  
+- XAMPP (ou outro servidor MySQL)  
 
-propertiesspring.datasource.url=jdbc:mysql://localhost:3306/gabarito_app
-spring.datasource.username=root
+---
+
+### 🛠️ Configuração do Banco de Dados
+
+1. Inicie o MySQL no XAMPP  
+2. Crie o banco de dados executando o script SQL fornecido:
+
+```sql
+-- Execute o script SQL completo fornecido no arquivo `database_script.sql`
+```
+
+---
+
+### 🔙 Configuração do Backend
+
+1. Clone ou baixe o projeto Spring Boot  
+2. Configure o `application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/gabarito_app  
+spring.datasource.username=root  
 spring.datasource.password=
+```
 
-Execute o projeto:
+3. Execute o projeto:
 
-bashmvn spring-boot:run
-O backend estará rodando em: http://localhost:8080
-3. Configuração do Mobile
+```bash
+mvn spring-boot:run
+```
 
-No arquivo lib/services/api_service.dart e lib/services/auth_service.dart,
-ajuste a URL base se necessário:
+O backend estará rodando em:  
+👉 `http://localhost:8080`
 
-dartstatic const String baseUrl = 'http://localhost:8080/api';
-// Para emulador Android use: http://10.0.2.2:8080/api
-// Para dispositivo físico use o IP da máquina
+---
 
-Execute o aplicativo Flutter:
+### 📲 Configuração do Mobile
 
-bashflutter pub get
+1. No arquivo `lib/services/api_service.dart` e `lib/services/auth_service.dart`, ajuste a URL base, se necessário:
+
+```dart
+static const String baseUrl = 'http://localhost:8080/api';
+// Emululador Android: http://10.0.2.2:8080/api
+// Dispositivo físico: use o IP da máquina
+```
+
+2. Execute o aplicativo Flutter:
+
+```bash
+flutter pub get  
 flutter run
-👥 Usuários de Teste
-O sistema vem com usuários pré-cadastrados para teste:
-Administrador
+```
 
-Email: admin@unialfa.edu.br
-Senha: 123456
+---
 
-Professor
+## 👥 Usuários de Teste
 
-Email: joao.silva@unialfa.edu.br
-Senha: 123456
+### Administrador
+- **Email**: `admin@unialfa.edu.br`  
+- **Senha**: `123456`
 
-Alunos
+### Professor
+- **Email**: `joao.silva@unialfa.edu.br`  
+- **Senha**: `123456`
 
-Email: maria.santos@estudante.unialfa.edu.br
-Senha: 123456
-Email: pedro.costa@estudante.unialfa.edu.br
-Senha: 123456
+### Alunos
+- **Email**: `maria.santos@estudante.unialfa.edu.br` | **Senha**: `123456`  
+- **Email**: `pedro.costa@estudante.unialfa.edu.br` | **Senha**: `123456`
 
-🔧 Funcionalidades Implementadas
-Sistema Web (Backend + Frontend)
-Administrador
+---
 
-✅ Dashboard com estatísticas gerais
-✅ Gerenciamento de usuários (CRUD)
-✅ Gerenciamento de turmas (CRUD)
-✅ Gerenciamento de disciplinas (CRUD)
-✅ Sistema de autenticação com perfis
+## 🔧 Funcionalidades Implementadas
 
-Professor
+### Sistema Web (Backend + Frontend)
 
-✅ Dashboard com suas provas
-✅ Criação de provas objetivas
-✅ Definição de gabarito oficial
-✅ Visualização de resultados por prova
-✅ Estatísticas (média da turma, total de alunos)
-✅ Correção automática das provas
+#### 👨‍💼 Administrador
+- ✅ Dashboard com estatísticas gerais  
+- ✅ Gerenciamento de usuários (CRUD)  
+- ✅ Gerenciamento de turmas (CRUD)  
+- ✅ Gerenciamento de disciplinas (CRUD)  
+- ✅ Sistema de autenticação com perfis  
 
-Aluno
+#### 👨‍🏫 Professor
+- ✅ Dashboard com suas provas  
+- ✅ Criação de provas objetivas  
+- ✅ Definição de gabarito oficial  
+- ✅ Visualização de resultados por prova  
+- ✅ Estatísticas (média da turma, total de alunos)  
+- ✅ Correção automática das provas  
 
-✅ Dashboard com suas notas
-✅ Visualização detalhada de resultados
-✅ Histórico de provas realizadas
+#### 👨‍🎓 Aluno
+- ✅ Dashboard com suas notas  
+- ✅ Visualização detalhada de resultados  
+- ✅ Histórico de provas realizadas  
 
-Aplicativo Mobile (Flutter)
+---
 
-✅ Tela de login com autenticação
-✅ Armazenamento local de credenciais
-✅ Seleção de aluno para envio de respostas
-✅ Seleção de prova disponível
-✅ Interface para entrada manual de respostas
-✅ Envio automático para a API
-✅ Feedback imediato com nota calculada
-🚧 Funcionalidade de câmera (estrutura criada, implementação pendente)
+### Aplicativo Mobile (Flutter)
 
-API REST
+- ✅ Tela de login com autenticação  
+- ✅ Armazenamento local de credenciais  
+- ✅ Seleção de aluno para envio de respostas  
+- ✅ Seleção de prova disponível  
+- ✅ Interface para entrada manual de respostas  
+- ✅ Envio automático para a API  
+- ✅ Feedback imediato com nota calculada  
+- 🚧 Funcionalidade de câmera (estrutura criada, implementação pendente)  
 
-✅ Endpoint de autenticação (/api/login)
-✅ Listagem de alunos (/api/alunos)
-✅ Listagem de provas (/api/provas)
-✅ Envio de respostas (/api/respostas)
-✅ Correção automática com cálculo de nota
-✅ Validação e tratamento de erros
+---
 
-📊 Estrutura do Banco de Dados
-Principais Tabelas
+### API REST
 
-usuarios: Armazena dados de usuários (admin, professores, alunos)
-turmas: Informações das turmas
-disciplinas: Cadastro de disciplinas
-provas: Provas criadas pelos professores
-respostas_aluno: Respostas enviadas pelos alunos
-aluno_turma: Relacionamento entre alunos e turmas
+- ✅ `POST /api/login` - Autenticação  
+- ✅ `GET /api/alunos` - Listagem de alunos  
+- ✅ `GET /api/provas` - Listagem de provas  
+- ✅ `POST /api/respostas` - Envio de respostas  
+- ✅ Correção automática com cálculo de nota  
+- ✅ Validação e tratamento de erros  
 
-🎯 Fluxo de Uso
-Para Professores:
+---
 
-Login no sistema web
-Criar nova prova definindo título, disciplina, turma e gabarito
-Aguardar respostas dos alunos
-Visualizar resultados e estatísticas
+## 📊 Estrutura do Banco de Dados
 
-Para Envio de Respostas (Mobile):
+**Principais Tabelas:**
 
-Login no aplicativo
-Selecionar o aluno
-Escolher a prova
-Inserir respostas manualmente
-Enviar para correção automática
-Receber feedback imediato
+- `usuarios`: Armazena dados de usuários (admin, professores, alunos)  
+- `turmas`: Informações das turmas  
+- `disciplinas`: Cadastro de disciplinas  
+- `provas`: Provas criadas pelos professores  
+- `respostas_aluno`: Respostas enviadas pelos alunos  
+- `aluno_turma`: Relacionamento entre alunos e turmas  
 
-🔐 Segurança
+---
 
-Autenticação baseada em Spring Security
-Autorização por perfis (ADMINISTRADOR, PROFESSOR, ALUNO)
-Senhas criptografadas com BCrypt
-Validação de dados nas APIs
-Controle de acesso nas rotas
+## 🎯 Fluxo de Uso
 
-📱 Interface Mobile
+### Para Professores:
+1. Login no sistema web  
+2. Criar nova prova definindo título, disciplina, turma e gabarito  
+3. Aguardar respostas dos alunos  
+4. Visualizar resultados e estatísticas  
 
-Design moderno com Material Design
-Tema personalizado nas cores da UniALFA
-Interface intuitiva e responsiva
-Feedback visual para todas as ações
-Tratamento de erros e estados de loading
+### Para Alunos (Aplicativo Mobile):
+1. Login no aplicativo  
+2. Selecionar o aluno  
+3. Escolher a prova  
+4. Inserir respostas manualmente  
+5. Enviar para correção automática  
+6. Receber feedback imediato  
 
-🌐 Interface Web
+---
 
-Layout responsivo com Bootstrap 5
-Dashboard específico para cada perfil
-Tabelas interativas com dados em tempo real
-Formulários validados
-Navegação intuitiva
+## 🔐 Segurança
 
-🏆 Equipe de Desenvolvimento
-Projeto desenvolvido para o Hackathon da Faculdade ALFA Umuarama - Curso de Sistemas para Internet, 5º Período.
+- Autenticação baseada em Spring Security  
+- Autorização por perfis (`ADMINISTRADOR`, `PROFESSOR`, `ALUNO`)  
+- Senhas criptografadas com BCrypt  
+- Validação de dados nas APIs  
+- Controle de acesso nas rotas  
 
-Nota: Este é um MVP (Produto Mínimo Viável) desenvolvido para demonstrar as funcionalidades principais do sistema. Todas as funcionalidades essenciais estão implementadas e funcionais.
+---
+
+## 📱 Interface Mobile
+
+- Design moderno com Material Design  
+- Tema personalizado nas cores da UniALFA  
+- Interface intuitiva e responsiva  
+- Feedback visual para todas as ações  
+- Tratamento de erros e estados de loading  
+
+---
+
+## 🌐 Interface Web
+
+- Layout responsivo com Bootstrap 5  
+- Dashboard específico para cada perfil  
+- Tabelas interativas com dados em tempo real  
+- Formulários validados  
+- Navegação intuitiva  
+
+---
+
+## 🏆 Equipe de Desenvolvimento
+
+Projeto desenvolvido para o **Hackathon da Faculdade ALFA Umuarama**  
+Curso de **Sistemas para Internet – 5º Período**
+
+> ⚠️ *Este é um MVP (Produto Mínimo Viável) desenvolvido para demonstrar as funcionalidades principais do sistema. Todas as funcionalidades essenciais estão implementadas e funcionais.*
