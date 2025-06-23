@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = frontendgabarito
+PRODUCT_NAME = gabarito_app
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = br.unialfa.frontendgabarito
+PRODUCT_BUNDLE_IDENTIFIER = br.unialfa.gabaritoApp
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2025 br.unialfa. All rights reserved.

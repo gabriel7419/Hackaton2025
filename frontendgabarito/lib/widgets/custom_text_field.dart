@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String label;
-  final String hint;
+  final String? hint;
+  final IconData? prefixIcon;
   final bool isPassword;
   final TextInputType keyboardType;
-  final IconData? prefixIcon;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
+  final bool enabled;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.label,
-    required this.hint,
+    this.hint,
+    this.prefixIcon,
     this.isPassword = false,
     this.keyboardType = TextInputType.text,
-    this.prefixIcon,
     this.validator,
-  }) : super(key: key);
+    this.onChanged,
+    this.enabled = true,
+  });
 
   @override
-  _CustomTextFieldState createState() => _CustomTextFieldState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
@@ -33,35 +36,53 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       controller: widget.controller,
       keyboardType: widget.keyboardType,
-      obscureText: widget.isPassword && _obscureText,
+      obscureText: widget.isPassword ? _obscureText : false,
       validator: widget.validator,
+      onChanged: widget.onChanged,
+      enabled: widget.enabled,
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hint,
-        prefixIcon:
-            widget.prefixIcon != null
-                ? Icon(widget.prefixIcon, color: AppTheme.primaryColor)
-                : null,
-        suffixIcon:
-            widget.isPassword
-                ? IconButton(
-                  icon: Icon(
-                    _obscureText ? Icons.visibility : Icons.visibility_off,
-                    color: AppTheme.primaryColor,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                )
-                : null,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+        prefixIcon: widget.prefixIcon != null
+            ? Icon(widget.prefixIcon, color: const Color(0xFF7F8C8D))
+            : null,
+        suffixIcon: widget.isPassword
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+                icon: Icon(
+                  _obscureText ? Icons.visibility : Icons.visibility_off,
+                  color: const Color(0xFF7F8C8D),
+                ),
+              )
+            : null,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFFBDC3C7)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFFBDC3C7)),
+        ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: AppTheme.primaryColor, width: 2),
+          borderSide: const BorderSide(color: Color(0xFF3498DB), width: 2),
         ),
-        labelStyle: TextStyle(color: AppTheme.primaryColor),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFFE74C3C)),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFFE74C3C), width: 2),
+        ),
+        filled: true,
+        fillColor: widget.enabled ? Colors.white : const Color(0xFFF8F9FA),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
     );
   }

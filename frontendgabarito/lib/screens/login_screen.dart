@@ -1,47 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
-import '../theme/app_theme.dart';
-import 'home_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _emailController = TextEditingController();
-  final _senhaController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _senhaController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
-  _login() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) return;
 
-      final result = await AuthService.login(
-        _emailController.text.trim(),
-        _senhaController.text,
-      );
+    final authService = Provider.of<AuthService>(context, listen: false);
 
-      setState(() {
-        _isLoading = false;
-      });
+    final result = await authService.login(
+      _usernameController.text.trim(),
+      _passwordController.text,
+    );
 
-      if (result['success']) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
+    if (mounted) {
+      if (result['success'] == true) {
+        Navigator.pushReplacementNamed(context, '/home');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -56,114 +50,107 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppTheme.primaryColor, AppTheme.secondaryColor],
-          ),
-        ),
-        child: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(24),
-              child: Card(
-                elevation: 8,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Form(
+      backgroundColor: const Color(0xFFF5F5F5),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Consumer<AuthService>(
+            builder: (context, authService, child) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Logo/Título
+                  const Icon(
+                    Icons.school,
+                    size: 80,
+                    color: Color(0xFF2C3E50),
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Sistema de Gabarito',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2C3E50),
+                    ),
+                  ),
+                  const Text(
+                    'UniALFA',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF7F8C8D),
+                    ),
+                  ),
+                  const SizedBox(height: 48),
+
+                  // Form
+                  Form(
                     key: _formKey,
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.school,
-                          size: 64,
-                          color: AppTheme.primaryColor,
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'UniALFA',
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.primaryColor,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Sistema de Gabarito',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        SizedBox(height: 32),
                         CustomTextField(
-                          controller: _emailController,
-                          label: 'Email',
-                          hint: 'Digite seu email',
-                          keyboardType: TextInputType.emailAddress,
-                          prefixIcon: Icons.email,
+                          controller: _usernameController,
+                          label: 'Usuário',
+                          prefixIcon: Icons.person,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Por favor, digite o email';
-                            }
-                            if (!value.contains('@')) {
-                              return 'Email inválido';
+                              return 'Digite o usuário';
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         CustomTextField(
-                          controller: _senhaController,
+                          controller: _passwordController,
                           label: 'Senha',
-                          hint: 'Digite sua senha',
-                          isPassword: true,
                           prefixIcon: Icons.lock,
+                          isPassword: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Por favor, digite a senha';
+                              return 'Digite a senha';
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 32),
                         CustomButton(
                           text: 'Entrar',
-                          onPressed: _isLoading ? null : _login,
-                          isLoading: _isLoading,
-                          width: double.infinity,
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'Usuários de teste:',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Professor: joao.silva@unialfa.edu.br / 123456\n'
-                          'Aluno: maria.santos@estudante.unialfa.edu.br / 123456',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[600],
-                          ),
-                          textAlign: TextAlign.center,
+                          isLoading: authService.isLoading,
+                          onPressed: _login,
                         ),
                       ],
                     ),
                   ),
-                ),
-              ),
-            ),
+
+                  const SizedBox(height: 48),
+
+                  // Info de demo
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE8F4FD),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Usuários de Demonstração:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF2C3E50),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text('Admin: admin / admin123'),
+                        Text('Professor: professor1 / prof123'),
+                        Text('Aluno: aluno1 / aluno123'),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

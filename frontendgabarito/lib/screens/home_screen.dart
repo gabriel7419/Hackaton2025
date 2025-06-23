@@ -1,226 +1,217 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
-import '../models/user.dart';
-import '../theme/app_theme.dart';
-import 'login_screen.dart';
-import 'aluno_selection_screen.dart';
+import '../services/api_service.dart';
+import '../models/aluno.dart';
+import '../models/prova.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  User? _currentUser;
+  final ApiService _apiService = ApiService();
+  List<Aluno> alunos = [];
+  List<Prova> provas = [];
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadUser();
+    _loadData();
   }
 
-  _loadUser() async {
-    User? user = await AuthService.getCurrentUser();
-    setState(() {
-      _currentUser = user;
-    });
-  }
+  Future<void> _loadData() async {
+    try {
+      final alunosResult = await _apiService.getAlunos();
+      final provasResult = await _apiService.getProvas();
 
-  _logout() async {
-    await AuthService.logout();
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+      setState(() {
+        alunos = alunosResult;
+        provas = provasResult;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao carregar dados: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('UniALFA - Gabarito'),
-        actions: [IconButton(icon: Icon(Icons.logout), onPressed: _logout)],
+        title: const Text('Sistema de Gabarito'),
+        backgroundColor: const Color(0xFF2C3E50),
+        foregroundColor: Colors.white,
+        actions: [
+          PopupMenuButton(
+            onSelected: (value) async {
+              if (value == 'logout') {
+                await Provider.of<AuthService>(context, listen: false).logout();
+                if (mounted) {
+                  Navigator.pushReplacementNamed(context, '/login');
+                }
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 'logout',
+                child: Text('Sair'),
+              ),
+            ],
+          ),
+        ],
       ),
-      body:
-          _currentUser == null
-              ? Center(child: CircularProgressIndicator())
-              : Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.blue[50]!, Colors.white],
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Welcome card
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Bem-vindo, ${Provider.of<AuthService>(context).currentUser?.nome ?? 'Usuário'}!',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'Selecione um aluno e uma prova para corrigir o gabarito.',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  const SizedBox(height: 24),
+
+                  // Actions
+                  Row(
                     children: [
-                      Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: AppTheme.primaryColor,
-                                child: Text(
-                                  _currentUser!.nome[0].toUpperCase(),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 16),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Bem-vindo!',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey[600],
-                                      ),
-                                    ),
-                                    Text(
-                                      _currentUser!.nome,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      _currentUser!.perfil,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: AppTheme.primaryColor,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/select-student');
+                          },
+                          icon: const Icon(Icons.person_add),
+                          label: const Text('Selecionar Aluno'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF3498DB),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
                           ),
                         ),
                       ),
-                      SizedBox(height: 24),
-                      Text(
-                        'Funcionalidades',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: AppTheme.primaryColor,
-                        ),
-                      ),
-                      SizedBox(height: 16),
+                      const SizedBox(width: 16),
                       Expanded(
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          children: [
-                            _buildFeatureCard(
-                              icon: Icons.school,
-                              title: 'Selecionar Aluno',
-                              subtitle: 'Escolha o aluno para enviar respostas',
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder:
-                                        (context) => AlunoSelectionScreen(),
-                                  ),
-                                );
-                              },
-                            ),
-                            _buildFeatureCard(
-                              icon: Icons.camera_alt,
-                              title: 'Escanear Gabarito',
-                              subtitle: 'Use a câmera para ler respostas',
-                              onTap: () {
-                                // TODO: Implementar escaneamento por câmera
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Funcionalidade em desenvolvimento',
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                            _buildFeatureCard(
-                              icon: Icons.list,
-                              title: 'Entrada Manual',
-                              subtitle: 'Digite as respostas manualmente',
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder:
-                                        (context) => AlunoSelectionScreen(),
-                                  ),
-                                );
-                              },
-                            ),
-                            _buildFeatureCard(
-                              icon: Icons.analytics,
-                              title: 'Relatórios',
-                              subtitle: 'Visualize estatísticas',
-                              onTap: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Acesse o sistema web para ver relatórios',
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/provas');
+                          },
+                          icon: const Icon(Icons.assignment),
+                          label: const Text('Ver Provas'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF27AE60),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.all(16),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-    );
-  }
+                  const SizedBox(height: 24),
 
-  Widget _buildFeatureCard({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required VoidCallback onTap,
-  }) {
-    return Card(
-      elevation: 4,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 48, color: AppTheme.primaryColor),
-              SizedBox(height: 12),
-              Text(
-                title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+                  // Stats
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                          color: const Color(0xFF3498DB),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                const Icon(
+                                  Icons.people,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  '${alunos.length}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Text(
+                                  'Alunos',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Card(
+                          color: const Color(0xFF27AE60),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                const Icon(
+                                  Icons.assignment,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  '${provas.length}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Text(
+                                  'Provas',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              SizedBox(height: 8),
-              Text(
-                subtitle,
-                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

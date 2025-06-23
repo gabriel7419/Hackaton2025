@@ -1,47 +1,57 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart';
 import '../models/user.dart';
+import 'api_service.dart';
+import 'storage_service.dart';
 
-class AuthService {
-  static const String baseUrl = 'http://localhost:8080/api';
+class AuthService extends ChangeNotifier {
+  final ApiService _apiService = ApiService();
+  final StorageService _storageService = StorageService();
 
-  static Future<Map<String, dynamic>> login(String email, String senha) async {
+  User? _currentUser;
+  bool _isLoading = false;
+
+  User? get currentUser => _currentUser;
+  bool get isLoading => _isLoading;
+  bool get isLoggedIn => _currentUser != null;
+
+  Future<void> checkLoginStatus() async {
+    _isLoading = true;
+    notifyListeners();
+
+    if (await _storageService.isLoggedIn()) {
+      _currentUser = await _storageService.getUser();
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  Future<Map<String, dynamic>> login(String username, String password) async {
+    _isLoading = true;
+    notifyListeners();
+
     try {
-      final response = await http.post(
-        Uri.parse('$baseUrl/login'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'email': email, 'senha': senha}),
-      );
+      final result = await _apiService.login(username, password);
 
-      final data = jsonDecode(response.body);
-
-      if (data['success']) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('user_email', email);
-        await prefs.setString('user_data', jsonEncode(data['usuario']));
-
-        return {'success': true, 'user': User.fromJson(data['usuario'])};
-      } else {
-        return {'success': false, 'message': data['message']};
+      if (result['success'] == true) {
+        _currentUser = User.fromJson(result['user']);
+        await _storageService.saveUser(_currentUser!);
       }
+
+      _isLoading = false;
+      notifyListeners();
+
+      return result;
     } catch (e) {
-      return {'success': false, 'message': 'Erro de conexão: $e'};
+      _isLoading = false;
+      notifyListeners();
+      return {'success': false, 'message': 'Erro: $e'};
     }
   }
 
-  static Future<void> logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-  }
-
-  static Future<User?> getCurrentUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userData = prefs.getString('user_data');
-
-    if (userData != null) {
-      return User.fromJson(jsonDecode(userData));
-    }
-    return null;
+  Future<void> logout() async {
+    _currentUser = null;
+    await _storageService.logout();
+    notifyListeners();
   }
 }
