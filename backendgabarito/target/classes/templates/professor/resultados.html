@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content}, 'Resultados da Prova')}">
+<content>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Resultados da Prova</h1>
+        <a href="/professor/provas" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+    </div>
+
+    <div class="row mb-4" th:if="${prova}">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${prova.titulo}"></h5>
+                    <p class="card-text">
+                        <strong>Disciplina:</strong> <span th:text="${prova.disciplina.nome}"></span><br>
+                        <strong>Turma:</strong> <span th:text="${prova.turma.nome}"></span><br>
+                        <strong>Data:</strong> <span th:text="${#temporals.format(prova.dataProva, 'dd/MM/yyyy')}"></span><br>
+                        <strong>Total de Questões:</strong> <span th:text="${prova.totalQuestoes}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 th:text="${totalAlunos}">0</h4>
+                            <p>Alunos que Fizeram</p>
+                        </div>
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 th:text="${media}">0.0</h4>
+                            <p>Média da Turma</p>
+                        </div>
+                        <i class="fas fa-chart-line fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Aluno</th>
+                <th>Email</th>
+                <th>Acertos</th>
+                <th>Nota</th>
+                <th>Data de Submissão</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="resposta : ${respostas}">
+                <td th:text="${resposta.aluno.nome}"></td>
+                <td th:text="${resposta.aluno.email}"></td>
+                <td th:text="${resposta.totalAcertos + '/' + prova.totalQuestoes}"></td>
+                <td>
+                        <span class="badge"
+                              th:classappend="${resposta.nota >= 7} ? 'bg-success' : (${resposta.nota >= 5} ? 'bg-warning' : 'bg-danger')"
+                              th:text="${resposta.nota}"></span>
+                </td>
+                <td th:text="${#temporals.format(resposta.dataSubmissao, 'dd/MM/yyyy HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</content>
+</html>
