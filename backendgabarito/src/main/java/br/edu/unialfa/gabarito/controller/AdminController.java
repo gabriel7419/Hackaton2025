@@ -17,7 +17,7 @@ public class AdminController {
     @Autowired private DisciplinaRepository disciplinaRepository;
     @Autowired private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/dashboard")
+    @GetMapping("/home")
     public String dashboard(Model model) {
         model.addAttribute("totalUsuarios", usuarioRepository.count());
         model.addAttribute("totalTurmas", turmaRepository.count());

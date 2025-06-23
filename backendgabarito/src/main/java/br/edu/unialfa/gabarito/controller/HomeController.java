@@ -22,7 +22,7 @@ public class HomeController {
         String role = auth.getAuthorities().iterator().next().getAuthority();
 
         return switch (role) {
-            case "ROLE_ADMINISTRADOR" -> "redirect:/admin/dashboard";
+            case "ROLE_ADMINISTRADOR" -> "redirect:/admin/home";
             case "ROLE_PROFESSOR" -> "redirect:/professor/dashboard";
             case "ROLE_ALUNO" -> "redirect:/aluno/dashboard";
             default -> "redirect:/login";

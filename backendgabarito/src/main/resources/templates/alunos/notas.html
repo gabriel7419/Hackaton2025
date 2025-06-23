@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content}, 'Minhas Notas')}">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::content}, 'Minhas Notas')}">
 <content>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Minhas Notas</h1>
@@ -27,14 +27,14 @@
                 <td th:text="${#temporals.format(resposta.prova.dataProva, 'dd/MM/yyyy')}"></td>
                 <td th:text="${resposta.totalAcertos + '/' + resposta.prova.totalQuestoes}"></td>
                 <td>
-                        <span class="badge"
-                              th:classappend="${resposta.nota >= 7} ? 'bg-success' : (${resposta.nota >= 5} ? 'bg-warning' : 'bg-danger')"
-                              th:text="${resposta.nota}"></span>
+                    <span class="badge"
+                          th:classappend="${resposta.nota >= 7} ? 'bg-success' : (${resposta.nota >= 5} ? 'bg-warning' : 'bg-danger')"
+                          th:text="${resposta.nota}"></span>
                 </td>
                 <td>
-                        <span class="badge"
-                              th:classappend="${resposta.nota >= 7} ? 'bg-success' : (${resposta.nota >= 5} ? 'bg-warning text-dark' : 'bg-danger')"
-                              th:text="${resposta.nota >= 7} ? 'Aprovado' : (${resposta.nota >= 5} ? 'Recuperação' : 'Reprovado')"></span>
+                    <span class="badge"
+                          th:classappend="${resposta.nota >= 7} ? 'bg-success' : (${resposta.nota >= 5} ? 'bg-warning text-dark' : 'bg-danger')"
+                          th:text="${resposta.nota >= 7} ? 'Aprovado' : (${resposta.nota >= 5} ? 'Recuperação' : 'Reprovado')"></span>
                 </td>
                 <td th:text="${#temporals.format(resposta.dataSubmissao, 'dd/MM/yyyy HH:mm')}"></td>
             </tr>
@@ -42,4 +42,3 @@
         </table>
     </div>
 </content>
-</html>

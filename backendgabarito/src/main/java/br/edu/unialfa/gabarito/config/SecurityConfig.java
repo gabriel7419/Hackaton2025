@@ -20,7 +20,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // Para desenvolvimento (use BCrypt em produção)
+        // Encriptação da senha
         return new BCryptPasswordEncoder();
     }
 

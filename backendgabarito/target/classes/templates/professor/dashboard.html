@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content}, 'Dashboard Professor')}">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::content}, 'Dashboard Professor')}">
 <content>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard do Professor</h1>
@@ -42,8 +42,9 @@
                     <td th:text="${prova.turma.nome}"></td>
                     <td th:text="${#temporals.format(prova.dataProva, 'dd/MM/yyyy')}"></td>
                     <td>
-                            <span class="badge" th:classappend="${prova.status == T(br.edu.unialfa.gabarito.model.Prova.Status).ATIVA} ? 'bg-success' : 'bg-secondary'"
-                                  th:text="${prova.status}"></span>
+                        <span class="badge"
+                              th:classappend="${prova.status == T(br.edu.unialfa.gabarito.model.Prova.Status).ATIVA} ? 'bg-success' : 'bg-secondary'"
+                              th:text="${prova.status}"></span>
                     </td>
                     <td>
                         <a th:href="@{/professor/resultados/{id}(id=${prova.id})}" class="btn btn-sm btn-outline-primary">
@@ -56,4 +57,3 @@
         </div>
     </div>
 </content>
-</html>

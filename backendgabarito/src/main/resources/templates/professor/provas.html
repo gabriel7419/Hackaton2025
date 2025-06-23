@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content}, 'Gerenciar Provas')}">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::content}, 'Gerenciar Provas')}">
 <content>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Gerenciar Provas</h1>
@@ -29,8 +29,9 @@
                 <td th:text="${#temporals.format(prova.dataProva, 'dd/MM/yyyy')}"></td>
                 <td th:text="${prova.totalQuestoes}"></td>
                 <td>
-                        <span class="badge" th:classappend="${prova.status == T(br.edu.unialfa.gabarito.model.Prova.Status).ATIVA} ? 'bg-success' : 'bg-secondary'"
-                              th:text="${prova.status}"></span>
+                    <span class="badge"
+                          th:classappend="${prova.status == T(br.edu.unialfa.gabarito.model.Prova.Status).ATIVA} ? 'bg-success' : 'bg-secondary'"
+                          th:text="${prova.status}"></span>
                 </td>
                 <td>
                     <a th:href="@{/professor/resultados/{id}(id=${prova.id})}" class="btn btn-sm btn-outline-primary">
@@ -62,15 +63,13 @@
                                 <input type="date" class="form-control" th:field="*{dataProva}" required>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Disciplina</label>
                                 <select class="form-select" th:field="*{disciplina}" required>
                                     <option value="">Selecione uma disciplina</option>
                                     <option th:each="disciplina : ${disciplinas}"
-                                            th:value="${disciplina.id}"
-                                            th:text="${disciplina.nome}"></option>
+                                            th:value="${disciplina.id}" th:text="${disciplina.nome}"></option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -78,19 +77,16 @@
                                 <select class="form-select" th:field="*{turma}" required>
                                     <option value="">Selecione uma turma</option>
                                     <option th:each="turma : ${turmas}"
-                                            th:value="${turma.id}"
-                                            th:text="${turma.nome}"></option>
+                                            th:value="${turma.id}" th:text="${turma.nome}"></option>
                                 </select>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Total de Questões</label>
                                 <input type="number" class="form-control" th:field="*{totalQuestoes}" min="1" max="100" required>
                             </div>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Gabarito Oficial</label>
                             <input type="text" class="form-control" th:field="*{gabaritoOficial}"
@@ -107,4 +103,3 @@
         </div>
     </div>
 </content>
-</html>

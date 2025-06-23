@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content}, 'Gerenciar Usuários')}">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::content}, 'Gerenciar Usuários')}">
 <content>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Gerenciar Usuários</h1>
@@ -26,14 +26,15 @@
                 <td th:text="${usuario.nome}"></td>
                 <td th:text="${usuario.email}"></td>
                 <td>
-                        <span class="badge"
-                              th:classappend="${usuario.perfil == T(br.edu.unialfa.gabarito.model.Usuario.Perfil).ADMINISTRADOR} ? 'bg-danger' :
-                                             (${usuario.perfil == T(br.edu.unialfa.gabarito.model.Usuario.Perfil).PROFESSOR} ? 'bg-warning' : 'bg-success')"
-                              th:text="${usuario.perfil}"></span>
+                    <span class="badge"
+                          th:classappend="${usuario.perfil == T(br.edu.unialfa.gabarito.model.Usuario.Perfil).ADMINISTRADOR} ? 'bg-danger' :
+                                         (usuario.perfil == T(br.edu.unialfa.gabarito.model.Usuario.Perfil).PROFESSOR ? 'bg-warning' : 'bg-success')"
+                          th:text="${usuario.perfil}"></span>
                 </td>
                 <td>
-                        <span class="badge" th:classappend="${usuario.ativo} ? 'bg-success' : 'bg-secondary'"
-                              th:text="${usuario.ativo} ? 'Ativo' : 'Inativo'"></span>
+                    <span class="badge"
+                          th:classappend="${usuario.ativo} ? 'bg-success' : 'bg-secondary'"
+                          th:text="${usuario.ativo} ? 'Ativo' : 'Inativo'"></span>
                 </td>
                 <td th:text="${#temporals.format(usuario.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
             </tr>
@@ -81,4 +82,3 @@
         </div>
     </div>
 </content>
-</html>
