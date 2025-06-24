@@ -1,165 +1,169 @@
-<h1 align="center">🎓 Sistema de Correção de Gabaritos – UniALFA</h1> <h3 align="center">🔚 Entrega Final – Hackathon 2025</h3>
-📦 O que foi entregue
+<h1 align="center">🎓 Sistema de Correção de Gabaritos – UniALFA</h1>
+<h3 align="center">🔚 Entrega Final – Hackathon 2025</h3>
+
+---
+
+## 📦 O que foi entregue
+
 Sistema completo e funcional, com integração total entre backend, web e app mobile, utilizando banco de dados relacional MySQL.
 
 Inclui:
 
-✅ Backend com Spring Boot + MySQL
+- ✅ Backend com Spring Boot + MySQL  
+- ✅ Aplicativo Flutter para correção de gabaritos  
+- ✅ Interface Web para gestão de provas e usuários  
+- ✅ API REST conectando mobile e web  
+- ✅ Três tipos de usuário: Administrador, Professor e Aluno  
+- ✅ Banco de dados persistente e relacional  
 
-✅ Aplicativo Flutter para correção de gabaritos
+---
 
-✅ Interface Web para gestão de provas e usuários
+## 💼 Principais Funcionalidades
 
-✅ API REST conectando mobile e web
+- ✅ Correção automática de gabaritos  
+- ✅ Cálculo instantâneo das notas  
+- ✅ Relatórios estatísticos em tempo real  
+- ✅ Gestão completa de usuários, turmas e provas  
+- ✅ App intuitivo para o aluno  
+- ✅ Web responsiva e de fácil navegação  
 
-✅ Três tipos de usuário: Administrador, Professor e Aluno
+---
 
-✅ Banco de dados persistente e relacional
+## 🚀 Como Executar o Sistema
 
-💼 Principais Funcionalidades
-✅ Correção automática de gabaritos
+### 1. 🗄 Configurar MySQL (5 min)
 
-✅ Cálculo instantâneo das notas
-
-✅ Relatórios estatísticos em tempo real
-
-✅ Gestão completa de usuários, turmas e provas
-
-✅ App intuitivo para o aluno
-
-✅ Web responsiva e de fácil navegação
-
-🚀 Como Executar o Sistema
-1. 🗄 Configurar MySQL (5 min)
-bash
-Copiar
-Editar
-# Linux
+**Linux:**
+```bash
 sudo apt install mysql-server
+```
 
-# macOS
+**macOS:**
+```bash
 brew install mysql
-Criar banco de dados:
+```
 
-sql
-Copiar
-Editar
+Criar banco de dados:
+```sql
 mysql -u root -p
 CREATE DATABASE gabarito_db;
 exit;
-2. 🔧 Executar Backend (Spring Boot)
-bash
-Copiar
-Editar
+```
+
+---
+
+### 2. 🔧 Executar Backend (Spring Boot)
+
+```bash
 cd sistema-gabarito-unialfa
 mvn clean spring-boot:run
-✅ Acesse: http://localhost:8080
+```
+✅ Acesse: [http://localhost:8080](http://localhost:8080)
 
-3. 📱 Executar App Flutter
-bash
-Copiar
-Editar
+---
+
+### 3. 📱 Executar App Flutter
+
+```bash
 cd gabarito_app
 flutter pub get
 flutter run
+```
 ✅ App rodando no emulador ou dispositivo físico
 
-🔐 Como Fazer Login
-🌐 Web:
-Usuário	Senha	Perfil	Acesso
-admin	admin123	Administrador	Gestão completa
-professor1	prof123	Professor	Provas e resultados
-aluno1	aluno123	Aluno	Visualização de notas
+---
 
-📱 App Flutter:
-Usa os mesmos dados acima
+## 🔐 Como Fazer Login
 
-Login automático após o primeiro acesso
+### 🌐 Web:
 
-Funciona offline após login inicial
+| Usuário     | Senha     | Perfil        | Acesso               |
+|------------|-----------|---------------|----------------------|
+| admin      | admin123  | Administrador | Gestão completa      |
+| professor1 | prof123   | Professor     | Provas e resultados  |
+| aluno1     | aluno123  | Aluno         | Visualização de notas|
 
-🎯 Como Demonstrar o Sistema
-📱 App Flutter:
-Login: admin / admin123
+### 📱 App Flutter:
 
-Selecionar aluno: Maria Santos
+- Usa os mesmos dados acima
+- Login automático após o primeiro acesso
+- Funciona offline após login inicial
 
-Escolher prova: Prova 1 – Hackathon
+---
 
-Marcar respostas: A,B,C,D,A,B,C,D,A,B
+## 🎯 Como Demonstrar o Sistema
 
-Resultado: Nota 8.0 – Aprovado! ⭐
+### 📱 App Flutter:
+1. Login: `admin` / `admin123`  
+2. Selecionar aluno: **Maria Santos**  
+3. Escolher prova: **Prova 1 – Hackathon**  
+4. Marcar respostas: `A,B,C,D,A,B,C,D,A,B`  
+5. Resultado: **Nota 8.0 – Aprovado! ⭐**
 
-🌐 Sistema Web:
-Login: admin / admin123
+---
 
-Acessar o Dashboard
+### 🌐 Sistema Web:
+1. Login: `admin` / `admin123`  
+2. Acessar o **Dashboard**  
+3. Criar ou visualizar provas  
+4. Ver correções em tempo real  
+5. Gerenciar turmas e usuários  
 
-Criar ou visualizar provas
+---
 
-Ver correções em tempo real
+## 📊 Dados Pré-Carregados
 
-Gerenciar turmas e usuários
+### 👥 Usuários
+- 1 Administrador  
+- 1 Professor  
+- 3 Alunos  
 
-📊 Dados Pré-Carregados
-👥 Usuários
+### 📚 Disciplinas
+- Sistemas para Internet  
+- Frameworks Java  
+- Programação Mobile  
 
-1 Administrador
+### 🏫 Turmas
+- 5º Período – Sistemas para Internet  
+- 5º Período – Frameworks Java  
 
-1 Professor
+### 📝 Provas
+- **Prova 1 – Hackathon** (10 questões)  
+  Gabarito: `A,B,C,D,A,B,C,D,A,B`  
 
-3 Alunos
+---
 
-📚 Disciplinas
+## 💡 Benefícios Principais
 
-Sistemas para Internet
+### ⚡ Agilidade
+- Correção até 95% mais rápida  
+- Resposta imediata ao aluno  
+- Zero erros humanos  
 
-Frameworks Java
+### 📈 Gestão
+- Relatórios automáticos de aprovação  
+- Estatísticas dinâmicas  
+- Histórico completo dos resultados  
 
-Programação Mobile
+### 🔒 Segurança
+- Controle de acesso por perfil  
+- Banco de dados persistente no MySQL  
+- API segura entre mobile e backend  
 
-🏫 Turmas
+---
 
-5º Período – Sistemas para Internet
+## 🏆 Arquitetura Final
 
-5º Período – Frameworks Java
-
-📝 Provas
-
-Prova 1 – Hackathon (10 questões)
-Gabarito: A,B,C,D,A,B,C,D,A,B
-
-💡 Benefícios Principais
-⚡ Agilidade
-Correção até 95% mais rápida
-
-Resposta imediata ao aluno
-
-Zero erros humanos
-
-📈 Gestão
-Relatórios automáticos de aprovação
-
-Estatísticas dinâmicas
-
-Histórico completo dos resultados
-
-🔒 Segurança
-Controle de acesso por perfil
-
-Banco de dados persistente no MySQL
-
-API segura entre mobile e backend
-
-🏆 Arquitetura Final
-text
-Copiar
-Editar
+```
 📱 Flutter App  →  🌐 Spring Boot API  →  🗄 MySQL
- (Mobile)          (Backend + Web)         (Banco de dados)
+(Mobile)          (Backend + Web)         (Banco de dados)
+```
 
-👥 Equipe: 
-Gabriel Paiva de Almeida - 13631
-Leonardo Chaves - 10471
-Matheus Urbano Mackert - 13629
-Bianca Gabriela da Silva - 14149
+---
+
+## 👥 Equipe
+
+- Gabriel Paiva de Almeida – 13631  
+- Leonardo Chaves – 10471  
+- Matheus Urbano Mackert – 13629  
+- Bianca Gabriela da Silva – 14149
