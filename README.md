@@ -1,7 +1,7 @@
-🎓 Sistema de Correção de Gabaritos – UniALFA
+#🎓 Sistema de Correção de Gabaritos – UniALFA
 🔚 Entrega Final – Hackathon 2025
 
-📦 O que foi entregue
+#📦 O que foi entregue
 Um sistema completo, do backend ao mobile, totalmente funcional e integrado com banco de dados MySQL.
 
 Inclui:
@@ -39,7 +39,7 @@ Editar
 mysql -u root -p
 CREATE DATABASE gabarito_db;
 exit;
-2. 🔧 Rodar o backend Spring Boot (2 minutos)
+#2. 🔧 Rodar o backend Spring Boot (2 minutos)
 bash
 Copiar
 Editar
@@ -47,7 +47,7 @@ cd sistema-gabarito-unialfa
 mvn clean spring-boot:run
 ✅ Backend disponível em: http://localhost:8080
 
-3. 📱 Rodar o app Flutter (2 minutos)
+#3. 📱 Rodar o app Flutter (2 minutos)
 bash
 Copiar
 Editar
