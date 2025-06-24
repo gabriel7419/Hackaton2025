@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Administrativo - Sistema de Gabarito</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        .header { background-color: #2c3e50; color: white; padding: 1rem; }
+        .header h1 { display: inline-block; }
+        .header .user-info { float: right; }
+        .nav { background-color: #34495e; padding: 0.5rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; margin-right: 1rem; border-radius: 3px; }
+        .nav a:hover { background-color: #4a6741; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .card { background: white; border-radius: 5px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .stats { display: flex; gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { flex: 1; text-align: center; padding: 1.5rem; background: white; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .stat-number { font-size: 2.5rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .action-card { padding: 1.5rem; background: white; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        .action-card a { text-decoration: none; color: inherit; }
+        .action-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: all 0.3s; }
+        .action-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .blue { color: #3498db; }
+        .green { color: #27ae60; }
+        .orange { color: #f39c12; }
+        .purple { color: #9b59b6; }
+        .red { color: #e74c3c; }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Sistema de Correção de Gabarito - Admin</h1>
+    <div class="user-info">
+        <span>Olá, <span sec:authentication="name">Administrador</span>!</span>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" style="background: none; border: none; color: #ecf0f1; margin-left: 1rem; cursor: pointer; font: inherit; text-decoration: underline;">Sair</button>
+        </form>
+
+    </div>
+</div>
+
+<nav class="nav">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/admin/usuarios">Usuários</a>
+    <a href="/admin/disciplinas">Disciplinas</a>
+    <a href="/admin/turmas">Turmas</a>
+    <a href="/professor/provas">Provas</a>
+    <a href="/aluno/notas">Notas</a>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <h2>Painel Administrativo</h2>
+        <p>Bem-vindo ao painel de administração. Aqui você pode gerenciar todo o sistema.</p>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number blue" th:text="${totalUsuarios}">0</div>
+            <div>Total de Usuários</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number green" th:text="${totalProfessores}">0</div>
+            <div>Professores</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number orange" th:text="${totalAlunos}">0</div>
+            <div>Alunos</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number purple" th:text="${totalDisciplinas}">0</div>
+            <div>Disciplinas</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number red" th:text="${totalTurmas}">0</div>
+            <div>Turmas</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Ações Administrativas</h3>
+        <div class="actions">
+            <div class="action-card">
+                <a href="/admin/usuarios">
+                    <div class="action-icon blue">👥</div>
+                    <h4>Gerenciar Usuários</h4>
+                    <p>Cadastrar e gerenciar usuários do sistema</p>
+                </a>
+            </div>
+            <div class="action-card">
+                <a href="/admin/disciplinas">
+                    <div class="action-icon green">📚</div>
+                    <h4>Gerenciar Disciplinas</h4>
+                    <p>Cadastrar e organizar disciplinas</p>
+                </a>
+            </div>
+            <div class="action-card">
+                <a href="/admin/turmas">
+                    <div class="action-icon orange">🏫</div>
+                    <h4>Gerenciar Turmas</h4>
+                    <p>Criar turmas e associar alunos</p>
+                </a>
+            </div>
+            <div class="action-card">
+                <a href="/professor/provas">
+                    <div class="action-icon purple">📝</div>
+                    <h4>Visualizar Provas</h4>
+                    <p>Acompanhar todas as provas do sistema</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

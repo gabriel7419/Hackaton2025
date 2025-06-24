@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Provas - Sistema de Gabarito</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        .header { background-color: #2c3e50; color: white; padding: 1rem; }
+        .header h1 { display: inline-block; }
+        .header .user-info { float: right; }
+        .nav { background-color: #34495e; padding: 0.5rem; }
+        .nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; margin-right: 1rem; border-radius: 3px; }
+        .nav a:hover { background-color: #4a6741; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .card { background: white; border-radius: 5px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 3px; }
+        .btn { padding: 0.5rem 1rem; border: none; border-radius: 3px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-primary { background-color: #3498db; color: white; }
+        .btn-success { background-color: #27ae60; color: white; }
+        .btn-danger { background-color: #e74c3c; color: white; }
+        .btn-info { background-color: #17a2b8; color: white; }
+        .btn:hover { opacity: 0.8; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .table th, .table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #ddd; }
+        .table th { background-color: #f8f9fa; font-weight: bold; }
+        .table tr:hover { background-color: #f8f9fa; }
+        .row { display: flex; gap: 2rem; }
+        .col { flex: 1; }
+        .gabarito-input { font-family: monospace; font-size: 14px; }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Sistema de Correção de Gabarito</h1>
+    <div class="user-info">
+        <span>Olá, <span sec:authentication="name">Usuario</span>!</span>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" style="background: none; border: none; color: #ecf0f1; margin-left: 1rem; cursor: pointer; font: inherit; text-decoration: underline;">Sair</button>
+        </form>
+    </div>
+</div>
+
+<nav class="nav">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/admin/usuarios" sec:authorize="hasRole('ADMINISTRADOR')">Usuários</a>
+    <a href="/admin/disciplinas" sec:authorize="hasRole('ADMINISTRADOR')">Disciplinas</a>
+    <a href="/admin/turmas" sec:authorize="hasRole('ADMINISTRADOR')">Turmas</a>
+    <a href="/professor/provas">Provas</a>
+    <a href="/aluno/notas">Notas</a>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <h2>Criar Nova Prova</h2>
+                <form th:action="@{/professor/provas}" th:object="${prova}" method="post">
+                    <div class="form-group">
+                        <label for="titulo">Título da Prova:</label>
+                        <input type="text" id="titulo" th:field="*{titulo}" placeholder="Ex: Prova 1 - Hackathon" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data">Data da Prova:</label>
+                        <input type="date" id="data" th:field="*{data}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="turma">Turma:</label>
+                        <select id="turma" th:field="*{turma}" required>
+                            <option value="">Selecione a turma</option>
+                            <option th:each="turma : ${turmas}"
+                                    th:value="${turma.id}"
+                                    th:text="${turma.nome + ' - ' + turma.disciplina.nome}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantidadeQuestoes">Quantidade de Questões:</label>
+                        <input type="number" id="quantidadeQuestoes" th:field="*{quantidadeQuestoes}"
+                               min="1" max="50" placeholder="Ex: 10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gabarito">Gabarito (separado por vírgulas):</label>
+                        <input type="text" id="gabarito" th:field="*{gabarito}" class="gabarito-input"
+                               placeholder="Ex: A,B,C,D,A,B,C,D,A,B" required>
+                        <small style="color: #666;">Digite as respostas separadas por vírgula (A,B,C,D,E)</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Criar Prova</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <h2>Minhas Provas</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Data</th>
+                        <th>Turma</th>
+                        <th>Questões</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="prova : ${provas}">
+                        <td th:text="${prova.titulo}"></td>
+                        <td th:text="${prova.data}"></td>
+                        <td th:text="${prova.turma.nome}"></td>
+                        <td th:text="${prova.quantidadeQuestoes}"></td>
+                        <td>
+                            <a th:href="@{/professor/provas/{id}/resultados(id=${prova.id})}"
+                               class="btn btn-info">Ver Resultados</a>
+                            <a th:href="@{/professor/provas/delete/{id}(id=${prova.id})}"
+                               class="btn btn-danger"
+                               onclick="return confirm('Tem certeza?')">Excluir</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
