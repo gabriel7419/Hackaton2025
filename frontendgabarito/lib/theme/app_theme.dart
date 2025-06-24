@@ -11,6 +11,8 @@ class AppTheme {
   static const Color textPrimaryColor = Color(0xFF2C3E50);
   static const Color textSecondaryColor = Color(0xFF7F8C8D);
 
+  static var accentColor;
+
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,

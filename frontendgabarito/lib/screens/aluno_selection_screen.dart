@@ -22,7 +22,8 @@ class _AlunoSelectionScreenState extends State<AlunoSelectionScreen> {
 
   _loadAlunos() async {
     try {
-      List<Aluno> alunos = await ApiService.getAlunos();
+      final apiService = ApiService();
+      List<Aluno> alunos = await apiService.getAlunos();
       setState(() {
         _alunos = alunos;
         _isLoading = false;
@@ -74,61 +75,61 @@ class _AlunoSelectionScreenState extends State<AlunoSelectionScreen> {
             ),
           ),
           Expanded(
-            child:
-                _isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : _filteredAlunos.isEmpty
+            child: _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : _filteredAlunos.isEmpty
                     ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.search_off, size: 64, color: Colors.grey),
-                          SizedBox(height: 16),
-                          Text(
-                            'Nenhum aluno encontrado',
-                            style: TextStyle(fontSize: 18, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    )
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.search_off,
+                                size: 64, color: Colors.grey),
+                            SizedBox(height: 16),
+                            Text(
+                              'Nenhum aluno encontrado',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      )
                     : ListView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: _filteredAlunos.length,
-                      itemBuilder: (context, index) {
-                        final aluno = _filteredAlunos[index];
-                        return Card(
-                          margin: EdgeInsets.only(bottom: 8),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: AppTheme.primaryColor,
-                              child: Text(
-                                aluno.nome[0].toUpperCase(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: _filteredAlunos.length,
+                        itemBuilder: (context, index) {
+                          final aluno = _filteredAlunos[index];
+                          return Card(
+                            margin: EdgeInsets.only(bottom: 8),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: AppTheme.primaryColor,
+                                child: Text(
+                                  aluno.nome[0].toUpperCase(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
+                              title: Text(
+                                aluno.nome,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(aluno.email),
+                              trailing: Icon(Icons.arrow_forward_ios),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProvaSelectionScreen(aluno: aluno),
+                                  ),
+                                );
+                              },
                             ),
-                            title: Text(
-                              aluno.nome,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(aluno.email),
-                            trailing: Icon(Icons.arrow_forward_ios),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder:
-                                      (context) =>
-                                          ProvaSelectionScreen(aluno: aluno),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                          );
+                        },
+                      ),
           ),
         ],
       ),

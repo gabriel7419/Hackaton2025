@@ -7,8 +7,8 @@ import '../models/resultado.dart';
 
 class ApiService {
   static const String baseUrl =
-      'http://10.0.2.2:8080/api'; // Para emulador Android
-  // static const String baseUrl = 'http://localhost:8080/api'; // Para iOS ou web
+      //'http://10.0.2.2:8080/api'; // Para emulador Android
+      'http://localhost:8080/api'; // Para iOS ou web
 
   Future<Map<String, dynamic>> login(String username, String password) async {
     try {

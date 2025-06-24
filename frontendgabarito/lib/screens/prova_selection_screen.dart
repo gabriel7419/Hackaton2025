@@ -26,7 +26,8 @@ class _ProvaSelectionScreenState extends State<ProvaSelectionScreen> {
 
   _loadProvas() async {
     try {
-      List<Prova> provas = await ApiService.getProvas();
+      final apiService = ApiService();
+      List<Prova> provas = await apiService.getProvas();
       setState(() {
         _provas = provas;
         _isLoading = false;
@@ -93,85 +94,85 @@ class _ProvaSelectionScreenState extends State<ProvaSelectionScreen> {
             ),
           ),
           Expanded(
-            child:
-                _isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : _provas.isEmpty
+            child: _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : _provas.isEmpty
                     ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.assignment, size: 64, color: Colors.grey),
-                          SizedBox(height: 16),
-                          Text(
-                            'Nenhuma prova disponível',
-                            style: TextStyle(fontSize: 18, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    )
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.assignment,
+                                size: 64, color: Colors.grey),
+                            SizedBox(height: 16),
+                            Text(
+                              'Nenhuma prova disponível',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      )
                     : ListView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: _provas.length,
-                      itemBuilder: (context, index) {
-                        final prova = _provas[index];
-                        return Card(
-                          margin: EdgeInsets.only(bottom: 8),
-                          child: ListTile(
-                            leading: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: AppTheme.accentColor,
-                                borderRadius: BorderRadius.circular(8),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: _provas.length,
+                        itemBuilder: (context, index) {
+                          final prova = _provas[index];
+                          return Card(
+                            margin: EdgeInsets.only(bottom: 8),
+                            child: ListTile(
+                              leading: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.accentColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Icon(
+                                  Icons.assignment,
+                                  color: Colors.white,
+                                ),
                               ),
-                              child: Icon(
-                                Icons.assignment,
-                                color: Colors.white,
+                              title: Text(
+                                prova.titulo,
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            title: Text(
-                              prova.titulo,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('${prova.disciplinaNome}'),
-                                Text('${prova.turmaNome}'),
-                                Text('${prova.totalQuestoes} questões'),
-                              ],
-                            ),
-                            trailing: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.arrow_forward_ios),
-                                SizedBox(height: 4),
-                                Text(
-                                  prova.dataProva,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey[600],
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('${prova.disciplinaNome}'),
+                                  Text('${prova.turmaNome}'),
+                                  Text('${prova.totalQuestoes} questões'),
+                                ],
+                              ),
+                              trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.arrow_forward_ios),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    prova.dataProva,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey[600],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RespostaScreen(
+                                      aluno: widget.aluno,
+                                      prova: prova,
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder:
-                                      (context) => RespostaScreen(
-                                        aluno: widget.aluno,
-                                        prova: prova,
-                                      ),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                          );
+                        },
+                      ),
           ),
         ],
       ),

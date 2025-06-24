@@ -27,4 +27,6 @@ class Prova {
       turma: Turma.fromJson(json['turma']),
     );
   }
+
+  get disciplinaNome => null;
 }
