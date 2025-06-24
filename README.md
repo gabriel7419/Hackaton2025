@@ -1,28 +1,36 @@
-#🎓 Sistema de Correção de Gabaritos – UniALFA
-🔚 Entrega Final – Hackathon 2025
-
-#📦 O que foi entregue
-Um sistema completo, do backend ao mobile, totalmente funcional e integrado com banco de dados MySQL.
+<h1 align="center">🎓 Sistema de Correção de Gabaritos – UniALFA</h1> <h3 align="center">🔚 Entrega Final – Hackathon 2025</h3>
+📦 O que foi entregue
+Sistema completo e funcional, com integração total entre backend, web e app mobile, utilizando banco de dados relacional MySQL.
 
 Inclui:
 
 ✅ Backend com Spring Boot + MySQL
+
 ✅ Aplicativo Flutter para correção de gabaritos
-✅ Interface web para gestão de provas, usuários e resultados
-✅ API REST integrada entre mobile e web
-✅ Três perfis de acesso: Administrador, Professor e Aluno
-✅ Banco de dados relacional e persistente
 
-💼 Principais funcionalidades
-✅ Correção automática de gabaritos em tempo real
-✅ Cálculo instantâneo de notas e aprovação
-✅ Relatórios estatísticos dinâmicos
-✅ Gestão completa de provas, turmas e usuários
-✅ Interface mobile simples e intuitiva
-✅ Sistema web responsivo e fácil de usar
+✅ Interface Web para gestão de provas e usuários
 
-🚀 Como executar o sistema
-1. 🗄 Configurar o MySQL (5 minutos)
+✅ API REST conectando mobile e web
+
+✅ Três tipos de usuário: Administrador, Professor e Aluno
+
+✅ Banco de dados persistente e relacional
+
+💼 Principais Funcionalidades
+✅ Correção automática de gabaritos
+
+✅ Cálculo instantâneo das notas
+
+✅ Relatórios estatísticos em tempo real
+
+✅ Gestão completa de usuários, turmas e provas
+
+✅ App intuitivo para o aluno
+
+✅ Web responsiva e de fácil navegação
+
+🚀 Como Executar o Sistema
+1. 🗄 Configurar MySQL (5 min)
 bash
 Copiar
 Editar
@@ -31,7 +39,7 @@ sudo apt install mysql-server
 
 # macOS
 brew install mysql
-Acesse o MySQL e crie o banco de dados:
+Criar banco de dados:
 
 sql
 Copiar
@@ -39,40 +47,40 @@ Editar
 mysql -u root -p
 CREATE DATABASE gabarito_db;
 exit;
-#2. 🔧 Rodar o backend Spring Boot (2 minutos)
+2. 🔧 Executar Backend (Spring Boot)
 bash
 Copiar
 Editar
 cd sistema-gabarito-unialfa
 mvn clean spring-boot:run
-✅ Backend disponível em: http://localhost:8080
+✅ Acesse: http://localhost:8080
 
-#3. 📱 Rodar o app Flutter (2 minutos)
+3. 📱 Executar App Flutter
 bash
 Copiar
 Editar
 cd gabarito_app
 flutter pub get
 flutter run
-✅ Aplicativo funcionando em emulador ou celular conectado
+✅ App rodando no emulador ou dispositivo físico
 
-🔐 Como fazer login
-🌐 Acesso via navegador:
+🔐 Como Fazer Login
+🌐 Web:
 Usuário	Senha	Perfil	Acesso
 admin	admin123	Administrador	Gestão completa
 professor1	prof123	Professor	Provas e resultados
 aluno1	aluno123	Aluno	Visualização de notas
 
-📱 No app Flutter:
-Utilize os mesmos usuários e senhas.
+📱 App Flutter:
+Usa os mesmos dados acima
 
-Login automático após o primeiro acesso.
+Login automático após o primeiro acesso
 
-Funciona offline após login inicial.
+Funciona offline após login inicial
 
-🎯 Como demonstrar o sistema
-📱 No app Flutter:
-Login com admin / admin123
+🎯 Como Demonstrar o Sistema
+📱 App Flutter:
+Login: admin / admin123
 
 Selecionar aluno: Maria Santos
 
@@ -82,18 +90,18 @@ Marcar respostas: A,B,C,D,A,B,C,D,A,B
 
 Resultado: Nota 8.0 – Aprovado! ⭐
 
-🌐 No sistema web:
-Login com admin / admin123
+🌐 Sistema Web:
+Login: admin / admin123
 
-Acessar dashboard: visualizar estatísticas
+Acessar o Dashboard
 
-Criar nova prova
+Criar ou visualizar provas
 
-Acompanhar correções em tempo real
+Ver correções em tempo real
 
-Gerenciar usuários e turmas
+Gerenciar turmas e usuários
 
-📊 Dados pré-carregados
+📊 Dados Pré-Carregados
 👥 Usuários
 
 1 Administrador
@@ -119,30 +127,29 @@ Programação Mobile
 📝 Provas
 
 Prova 1 – Hackathon (10 questões)
-
 Gabarito: A,B,C,D,A,B,C,D,A,B
 
-💡 Benefícios principais
+💡 Benefícios Principais
 ⚡ Agilidade
-Correção 95% mais rápida
+Correção até 95% mais rápida
 
-Resposta instantânea para alunos
+Resposta imediata ao aluno
 
-Sem margem de erro humana
+Zero erros humanos
 
-📈 Gestão eficiente
-Relatórios automáticos
+📈 Gestão
+Relatórios automáticos de aprovação
 
-Painéis com dados em tempo real
+Estatísticas dinâmicas
 
-Histórico completo de desempenho
+Histórico completo dos resultados
 
 🔒 Segurança
 Controle de acesso por perfil
 
-Dados armazenados de forma segura no MySQL
+Banco de dados persistente no MySQL
 
-Comunicação protegida entre app e backend
+API segura entre mobile e backend
 
 🏆 Arquitetura Final
 text
