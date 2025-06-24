@@ -91,7 +91,7 @@ flutter run
 
 ---
 
-## 🎯 Como Demonstrar o Sistema
+## 🎯 Testando o Sistema
 
 ### 📱 App Flutter:
 1. Login: `admin` / `admin123`  
@@ -130,25 +130,6 @@ flutter run
 ### 📝 Provas
 - **Prova 1 – Hackathon** (10 questões)  
   Gabarito: `A,B,C,D,A,B,C,D,A,B`  
-
----
-
-## 💡 Benefícios Principais
-
-### ⚡ Agilidade
-- Correção até 95% mais rápida  
-- Resposta imediata ao aluno  
-- Zero erros humanos  
-
-### 📈 Gestão
-- Relatórios automáticos de aprovação  
-- Estatísticas dinâmicas  
-- Histórico completo dos resultados  
-
-### 🔒 Segurança
-- Controle de acesso por perfil  
-- Banco de dados persistente no MySQL  
-- API segura entre mobile e backend  
 
 ---
 
